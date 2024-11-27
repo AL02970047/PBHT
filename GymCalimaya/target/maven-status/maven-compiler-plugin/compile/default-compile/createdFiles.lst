@@ -1,0 +1,13 @@
+controller\AsistenciaServlet$UsuarioDTO.class
+controller\RegistrarUsuarioServlet.class
+model\Asistencia.class
+controller\AsistenciaServlet.class
+com\mycompany\gymcalimaya\JakartaRestConfiguration.class
+controller\BuscarUsuariosDinamicoServlet.class
+model\Usuario.class
+util\DBConnection.class
+controller\DetalleUsuarioServlet.class
+com\mycompany\gymcalimaya\resources\JakartaEE11Resource.class
+controller\ListarUsuariosServlet.class
+controller\UsuarioController.class
+controller\AsistenciaController.class
