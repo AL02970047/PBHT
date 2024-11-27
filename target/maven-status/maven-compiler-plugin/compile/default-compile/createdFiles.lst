@@ -1,0 +1,11 @@
+com\mycompany\gymcalimaya\resources\JakartaEE11Resource.class
+controller\RegistrarUsuarioServlet.class
+model\Asistencia.class
+controller\ListarUsuariosServlet.class
+controller\UsuarioController.class
+controller\AsistenciaController.class
+controller\AsistenciaServlet.class
+com\mycompany\gymcalimaya\JakartaRestConfiguration.class
+model\Usuario.class
+util\DBConnection.class
+controller\DetalleUsuarioServlet.class
