@@ -1,0 +1,33 @@
+pipeline:
+  name: Nuevo
+  identifier: Nuevo
+  projectIdentifier: nuevi
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: identifitera_12
+        identifier: identifitera_12
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: name
+                  identifier: name
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - _project_all_users
+                    isAutoRejectEnabled: false
+                    approverInputs: []
+        tags: {}
