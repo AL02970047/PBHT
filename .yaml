@@ -1,0 +1,21 @@
+pipeline:
+  name: Build and Test Pipeline
+  stages:
+    - stage:
+        name: Build
+        execution:
+          - step:
+              name: Build with Maven
+              type: Run Shell Script
+              spec:
+                shell: bash
+                command: |
+                  mvn clean test
+    - stage:
+        name: Deploy
+        execution:
+          - step:
+              name: Deploy Application
+              type: Kubernetes Deploy
+              spec:
+                # especificaciones para despliegue
