@@ -49,23 +49,23 @@ ___
 
 
 ## Requerimientos:
-### A.	Servidores de aplicación, web, bases de datos, etc.
+### Servidores de aplicación, web, bases de datos, etc.
 •	Servidor de aplicación: Apache Tomcat (versión 9 o superior).
 •	Servidor web: No es necesario, ya que Apache Tomcat maneja tanto la parte de servidor web como de aplicaciones.
 •	Base de datos: MySQL (versión 5.7 o superior).
-
-### B.	Paquetes adicionales.
+___
+### Paquetes adicionales.
 •	JDBC para conexión con MySQL.
 •	Maven para la gestión de dependencias.
 •	JSP/Servlet API para el desarrollo de la lógica web.
-
-### C.	Versión de Java, etc.
+___
+### Versión de Java, etc.
 •	Java: 11 o superior (especificado en pom.xml de Maven).
 •	Maven: 3.6 o superior.
-
+___
 
 ## Instalación:
-### A.	¿Cómo instalar el ambiente de desarrollo?
+## ¿Cómo instalar el ambiente de desarrollo?
 1.	Clona el repositorio:
 Ejecuta el siguiente comando para clonar el repositorio en tu máquina local:
 git clone https://github.com/AL02970047/GymCalimaya.git
@@ -75,23 +75,23 @@ git clone https://github.com/AL02970047/GymCalimaya.git
 •	Crea una base de datos en MySQL llamada gym_calimaya.
 •	Configura el archivo web.xml o el archivo de propiedades de conexión de la base de datos con las credenciales correctas.
 
-### B.	¿Cómo ejecutar pruebas manualmente?
+### ¿Cómo ejecutar pruebas manualmente?
 •	Ejecuta el servidor Apache Tomcat en modo desarrollo.
 •	Accede a la aplicación a través de http://localhost:8080/GymCalimaya.
 •	Realiza pruebas funcionales accediendo a las funcionalidades principales: registrar usuarios, registrar asistencia, consultar reportes, etc.
 
-### C.	¿Cómo implementar la solución en producción en un ambiente local o en la nube como Heroku?
+### ¿Cómo implementar la solución en producción en un ambiente local o en la nube como Heroku?
 Ejecuta Apache Tomcat en tu máquina local.
 Despliega el archivo .war generado por Maven en la carpeta webapps de Apache Tomcat.
 El archivo .war generado se encontrará en el directorio target/. Colócalo en webapps/ y reinicia Tomcat.
 
 ## Configuración:
-### A.	Configuración del producto (archivos de configuración).
+### Configuración del producto (archivos de configuración).
 El proyecto contiene archivos de configuración en el directorio src/main/resources/ que incluyen:
 •	application.properties: Configuración de la base de datos y otros parámetros de la aplicación.
 •	pom.xml: Configuración de Maven y las dependencias necesarias.
 
-### B.	Configuración de los requerimientos.
+### BConfiguración de los requerimientos.
 La configuración de los requerimientos depende del entorno en el que se desplegará la aplicación. Es importante asegurarse de que los valores de configuración como la URL de la base de datos, el puerto del servidor, etc., estén correctamente ajustados para el ambiente local o de producción.
 
 
