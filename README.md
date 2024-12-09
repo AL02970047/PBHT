@@ -102,9 +102,10 @@ B.	Sección de referencia para usuario administrador.
 
 
 # Manual de Uso
+- ## Al ser un programa para la administración de un gym, solo se deja el manual de administrador. Solo es un software para administradores.
 
-## Manual de Uso: `index.jsp` (Página Principal de Gym Calimaya)
-## Al ser un programa para la administración de un gym, solo se deja el manual de administrador:
+- ## Manual de Uso: `index.jsp` (Página Principal de Gym Calimaya)
+
 
 ### Descripción:
 La página **index.jsp** sirve como la pantalla de bienvenida y acceso principal del sistema **Gym Calimaya**. Desde esta página, los administradores del gimnasio pueden navegar hacia diferentes secciones para gestionar usuarios, registrar asistencias y ver reportes.
@@ -231,8 +232,8 @@ La página **filtrarAsistencia.jsp** permite a los administradores visualizar la
 
 
 ## Contribución:
-A.	Guía de contribución para usuarios.
-B.	Debe contar con pasos específicos para clonar repositorio, crear un nuevo branch, enviar el pull request, esperar a hacer el merge
+- A.	Guía de contribución para usuarios.
+- B.	Debe contar con pasos específicos para clonar repositorio, crear un nuevo branch, enviar el pull request, esperar a hacer el merge
 
 Si deseas contribuir al proyecto, sigue estos pasos:
 1.	Clona el repositorio:
@@ -248,11 +249,12 @@ git push origin nombre-de-tu-branch
 6.	Espera la aprobación y el merge de tu pull request.
 ___
 
-## Roadmap:
-**A.	Requerimientos que se implementarán en un futuro.**
+## Roadmap
 
-**•	Autenticación avanzada: Implementación de un sistema de autenticación con una cámara de reconocimiento facial o huella digital.**
-**•	Mejoras en la interfaz de usuario: Rediseño de la interfaz para mejorar la experiencia del usuario.**
-**•	Integración con servicios externos: Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.**
-**•	Módulos de reportes.**
----
+### A. Requerimientos que se implementarán en un futuro.
+
+- **Autenticación avanzada:** Implementación de un sistema de autenticación con una cámara de reconocimiento facial o huella digital.
+- **Mejoras en la interfaz de usuario:** Rediseño de la interfaz para mejorar la experiencia del usuario.
+- **Integración con servicios externos:** Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.
+- **Módulos de reportes:** Mejoras en los módulos de reportes para generar análisis más detallados y personalizables.
+___
