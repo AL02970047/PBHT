@@ -118,3 +118,88 @@ A.	Requerimientos que se implementarán en un futuro.
 •	Mejoras en la interfaz de usuario: Rediseño de la interfaz para mejorar la experiencia del usuario.
 •	Integración con servicios externos: Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.
 •	Módulos de reportes.
+
+
+
+# Gym Calimaya
+
+## Tabla de Contenidos
+
+1. [Descripción](#descripción)
+2. [Problema Identificado](#problema-identificado)
+3. [Solución](#solución)
+4. [Arquitectura](#arquitectura)
+5. [Requerimientos](#requerimientos)
+   - [Servidores y Bases de Datos](#servidores-y-bases-de-datos)
+   - [Paquetes Adicionales](#paquetes-adicionales)
+   - [Versión de Java](#versión-de-java)
+6. [Instalación](#instalación)
+   - [Ambiente de Desarrollo](#cómo-instalar-el-ambiente-de-desarrollo)
+   - [Pruebas Manuales](#cómo-ejecutar-pruebas-manualmente)
+   - [Implementación en Producción](#cómo-implementar-la-solución-en-producción)
+7. [Configuración](#configuración)
+   - [Configuración del Producto](#configuración-del-producto)
+   - [Configuración de los Requerimientos](#configuración-de-los-requerimientos)
+8. [Uso](#uso)
+   - [Manual del Usuario Final](#manual-del-usuario-final)
+   - [Manual del Administrador](#manual-del-administrador)
+9. [Contribución](#contribución)
+10. [Roadmap](#roadmap)
+
+---
+
+## Descripción
+
+El sistema Gym Calimaya es una aplicación web diseñada para gestionar las asistencias y los usuarios de un gimnasio. Su propósito principal es facilitar el control de las entradas y salidas de los miembros, así como generar reportes detallados sobre su historial de asistencia, todo a través de una interfaz web fácil de usar.
+
+---
+
+## Problema Identificado
+
+Antes de este sistema, el gimnasio utilizaba métodos manuales para registrar las asistencias de los usuarios, lo que resultaba en inconsistencias, pérdida de datos y la falta de un sistema eficiente para generar reportes. El proceso era lento y propenso a errores humanos, lo que afectaba la calidad del servicio y la administración del gimnasio.
+
+---
+
+## Solución
+
+La solución es una plataforma web que permite a los administradores registrar y gestionar usuarios, tomar asistencia en tiempo real, filtrar asistencias por diferentes criterios (día, semana, mes, año) y descargar reportes en formatos como CSV. La aplicación ofrece una interfaz fácil de usar y un sistema robusto para mejorar la eficiencia administrativa y la precisión de los registros.
+
+---
+
+## Arquitectura
+
+El sistema está diseñado utilizando una arquitectura Modelo-Vista-Controlador (MVC). Los principales componentes incluyen:
+
+1. **Frontend** - HTML, CSS, y JavaScript (con diseño responsive).
+2. **Backend** - Servidor de aplicaciones Apache Tomcat utilizando Jakarta EE (Servlets y JSP).
+3. **Base de Datos** - MySQL para el almacenamiento de los datos de los usuarios y los registros de asistencia.
+4. **Java** - JDK 11 para la programación del servidor.
+5. **Herramientas adicionales** - Maven para la gestión de dependencias y GitHub para el control de versiones.
+
+---
+
+## Requerimientos
+
+### Servidores y Bases de Datos
+
+- **Servidor web:** Apache Tomcat (versión 9 o superior).
+- **Base de Datos:** MySQL 5.7 o superior.
+
+### Paquetes Adicionales
+
+- **Maven:** Para gestionar las dependencias del proyecto.
+- **JDK 11:** Para compilar y ejecutar el servidor backend.
+
+### Versión de Java
+
+- **JDK 11 o superior** es necesario para la correcta ejecución de la plataforma.
+
+---
+
+## Instalación
+
+### Cómo instalar el ambiente de desarrollo
+
+1. Clona el repositorio del proyecto:
+   ```bash
+   git clone https://github.com/tu-repo/gym-calimaya.git
