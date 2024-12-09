@@ -99,11 +99,12 @@ La configuración de los requerimientos depende del entorno en el que se despleg
 A.	Sección de referencia para usuario final. Manual que se hará referencia para usuarios finales.
 B.	Sección de referencia para usuario administrador.
 
-Al ser un programa para la administración de un gym, solo se deja el manual de administrador:
+
 
 # Manual de Uso
 
 ## Manual de Uso: `index.jsp` (Página Principal de Gym Calimaya)
+## Al ser un programa para la administración de un gym, solo se deja el manual de administrador:
 
 ### Descripción:
 La página **index.jsp** sirve como la pantalla de bienvenida y acceso principal del sistema **Gym Calimaya**. Desde esta página, los administradores del gimnasio pueden navegar hacia diferentes secciones para gestionar usuarios, registrar asistencias y ver reportes.
@@ -248,10 +249,10 @@ git push origin nombre-de-tu-branch
 ___
 
 ## Roadmap:
-A.	Requerimientos que se implementarán en un futuro.
+**A.	Requerimientos que se implementarán en un futuro.**
 
-•	Autenticación avanzada: Implementación de un sistema de autenticación con una cámara de reconocimiento facial o huella digital.
-•	Mejoras en la interfaz de usuario: Rediseño de la interfaz para mejorar la experiencia del usuario.
-•	Integración con servicios externos: Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.
-•	Módulos de reportes.
+**•	Autenticación avanzada: Implementación de un sistema de autenticación con una cámara de reconocimiento facial o huella digital.**
+**•	Mejoras en la interfaz de usuario: Rediseño de la interfaz para mejorar la experiencia del usuario.**
+**•	Integración con servicios externos: Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.**
+**•	Módulos de reportes.**
 ---
