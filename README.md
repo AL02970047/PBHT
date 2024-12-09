@@ -116,16 +116,13 @@ git commit -m "Descripción de los cambios"
 git push origin nombre-de-tu-branch
 5.	Abre un Pull Request en GitHub para que los cambios sean revisados.
 6.	Espera la aprobación y el merge de tu pull request.
+___
 
-
-Roadmap:
+## Roadmap:
 A.	Requerimientos que se implementarán en un futuro.
 
 •	Autenticación avanzada: Implementación de un sistema de autenticación con una cámara de reconocimiento facial o huella digital.
 •	Mejoras en la interfaz de usuario: Rediseño de la interfaz para mejorar la experiencia del usuario.
 •	Integración con servicios externos: Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.
 •	Módulos de reportes.
-
-
-
 ---
