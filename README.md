@@ -91,13 +91,142 @@ El proyecto contiene archivos de configuración en el directorio src/main/resour
 •	application.properties: Configuración de la base de datos y otros parámetros de la aplicación.
 •	pom.xml: Configuración de Maven y las dependencias necesarias.
 
-### BConfiguración de los requerimientos.
+### Configuración de los requerimientos.
 La configuración de los requerimientos depende del entorno en el que se desplegará la aplicación. Es importante asegurarse de que los valores de configuración como la URL de la base de datos, el puerto del servidor, etc., estén correctamente ajustados para el ambiente local o de producción.
 
 
 ## Uso:
 A.	Sección de referencia para usuario final. Manual que se hará referencia para usuarios finales.
 B.	Sección de referencia para usuario administrador.
+
+Al ser un programa para la administración de un gym, solo se deja el manual de administrador:
+
+# Manual de Uso
+
+## Manual de Uso: `index.jsp` (Página Principal de Gym Calimaya)
+
+### Descripción:
+La página **index.jsp** sirve como la pantalla de bienvenida y acceso principal del sistema **Gym Calimaya**. Desde esta página, los administradores del gimnasio pueden navegar hacia diferentes secciones para gestionar usuarios, registrar asistencias y ver reportes.
+
+### Funcionalidades:
+1. **Mensajes Dinámicos:**
+   - Esta página puede mostrar mensajes de éxito o error basados en los parámetros `message` o `error` pasados a través de la URL.
+     - **Mensaje de Éxito:** Si se pasa un parámetro `message`, se mostrará un mensaje en un fondo verde con texto en blanco.
+     - **Mensaje de Error:** Si se pasa un parámetro `error`, se mostrará un mensaje en un fondo rojo con texto en blanco.
+
+2. **Botones de Navegación:** Los botones permiten acceder a diferentes funcionalidades del sistema:
+   - **Registrar Usuario:**
+     - **Función:** Redirige al formulario de registro de nuevos usuarios (`registrarUsuario.jsp`).
+     - **Uso:** Permite a los administradores ingresar nuevos miembros al sistema de gestión del gimnasio.
+   - **Tomar Asistencia:**
+     - **Función:** Redirige a la página de toma de asistencia (`tomarAsistencia.jsp`).
+     - **Uso:** Permite registrar la entrada o salida de los usuarios en el gimnasio.
+   - **Listar Usuarios:**
+     - **Función:** Redirige a la página donde se pueden listar todos los usuarios registrados en el gimnasio (`listarUsuarios.jsp`).
+     - **Uso:** Muestra una lista de usuarios, permitiendo a los administradores ver detalles y realizar acciones adicionales, como filtros.
+   - **Ver Lista de Asistencias:**
+     - **Función:** Redirige a la página para ver el historial de asistencias de los usuarios (`filtrarAsistencia.jsp`).
+     - **Uso:** Permite visualizar las asistencias filtradas por fechas (día, semana, mes, etc.) y generar reportes.
+
+### Interacción:
+- **Al hacer clic en un botón:** Cada botón está vinculado a una página específica del sistema. Al hacer clic en un botón, el administrador será redirigido a la página correspondiente.
+
+---
+
+## Manual de Uso: `registrarUsuario.jsp` (Formulario de Registro de Usuario)
+
+### Descripción:
+La página **registrarUsuario.jsp** permite a los administradores registrar nuevos usuarios en el sistema **Gym Calimaya**. Aquí, se ingresan los datos del usuario (nombre, correo, etc.) y se guardan en la base de datos.
+
+### Funcionalidades:
+1. **Formulario de Registro:**
+   - Permite ingresar los detalles del usuario que será registrado en el sistema. Los campos incluyen:
+     - **Nombre Completo**
+     - **Correo Electrónico**
+     - **Teléfono**
+     - **Fecha de Inscripción**
+     - Otros detalles relevantes según la configuración.
+   - **Botón de Enviar:**
+     - Al hacer clic en el botón de enviar, los datos se envían al servidor y se registran en la base de datos.
+
+2. **Validación:**
+   - El formulario realiza validaciones básicas para asegurarse de que los campos sean completados correctamente.
+
+3. **Mensajes de Confirmación:**
+   - Al registrar un usuario con éxito, se muestra un mensaje de confirmación en la misma página, indicando que el registro se ha completado con éxito.
+
+### Interacción:
+- **Ingreso de datos:** Completa los campos del formulario.
+- **Envío del formulario:** Haz clic en el botón de enviar para registrar al usuario. Si el registro es exitoso, serás redirigido a la página principal con un mensaje de éxito.
+
+---
+
+## Manual de Uso: `tomarAsistencia.jsp` (Toma de Asistencia)
+
+### Descripción:
+La página **tomarAsistencia.jsp** permite registrar la entrada y salida de los usuarios en el gimnasio. El administrador puede marcar si un usuario está entrando o saliendo en el momento de su visita.
+
+### Funcionalidades:
+1. **Formulario de Asistencia:**
+   - El administrador selecciona un usuario y registra su entrada o salida.
+   - El formulario incluye un campo para seleccionar al usuario y un botón para marcar su asistencia.
+
+2. **Validación:**
+   - Se valida que el usuario esté registrado en la base de datos y que el tipo de asistencia (entrada o salida) esté correctamente seleccionado.
+
+3. **Mensaje de Confirmación:**
+   - Después de registrar la asistencia, se muestra un mensaje indicando si la acción fue exitosa.
+
+### Interacción:
+- **Selección del Usuario:** El administrador selecciona un usuario de una lista desplegable.
+- **Registro de Asistencia:** Elige si el usuario está entrando o saliendo y haz clic en el botón de registrar.
+
+---
+
+## Manual de Uso: `listarUsuarios.jsp` (Listado de Usuarios)
+
+### Descripción:
+La página **listarUsuarios.jsp** permite visualizar todos los usuarios registrados en el gimnasio. Los administradores pueden ver detalles de cada usuario y filtrar los resultados según diferentes criterios.
+
+### Funcionalidades:
+1. **Lista de Usuarios:**
+   - Muestra una lista de todos los usuarios con su nombre, correo electrónico, y detalles asociados.
+   
+2. **Filtros de Búsqueda:**
+   - Permite a los administradores filtrar la lista de usuarios según ciertos criterios como nombre, fecha de inscripción, etc.
+   
+3. **Acciones por Usuario:**
+   - Al lado de cada usuario, se incluyen botones para editar o eliminar registros.
+
+### Interacción:
+- **Filtrar Usuarios:** Ingresa criterios de búsqueda y presiona "Filtrar" para ajustar la lista.
+- **Ver Detalles del Usuario:** Haz clic en el nombre del usuario para ver detalles más específicos o editar la información.
+
+---
+
+## Manual de Uso: `filtrarAsistencia.jsp` (Filtrado de Asistencias)
+
+### Descripción:
+La página **filtrarAsistencia.jsp** permite a los administradores visualizar las asistencias registradas de los usuarios, filtrándolas por diferentes períodos (día, semana, mes, año).
+
+### Funcionalidades:
+1. **Filtros de Asistencia:**
+   - Los administradores pueden seleccionar un filtro de fechas (día, semana, mes, etc.) para ver las asistencias de los usuarios.
+   
+2. **Visualización de Asistencias:**
+   - Muestra un reporte con todas las asistencias filtradas, incluyendo la entrada y salida de cada usuario.
+
+3. **Generación de Reportes:**
+   - La página permite descargar el reporte filtrado en formato CSV para su análisis posterior.
+
+### Interacción:
+- **Aplicar Filtros:** Selecciona el período de tiempo y haz clic en "Filtrar" para ver los resultados.
+- **Descargar Reporte:** Haz clic en el botón de descarga para obtener el reporte en formato CSV.
+
+---
+
+
+
 
 
 ## Contribución:
