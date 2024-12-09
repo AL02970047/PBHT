@@ -10,8 +10,10 @@ public class Usuario {
     private String telefono;
     private String telefonoEmergencia;
     private LocalDate fechaExpiracion;
+    private boolean vigente; // Nuevo atributo
 
     // Getters y Setters
+
     public int getId() {
         return id;
     }
@@ -66,5 +68,13 @@ public class Usuario {
 
     public void setFechaExpiracion(LocalDate fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
+    }
+
+    public boolean isVigente() { // Getter para vigente
+        return vigente;
+    }
+
+    public void setVigente(boolean vigente) { // Setter para vigente
+        this.vigente = vigente;
     }
 }

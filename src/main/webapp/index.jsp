@@ -31,6 +31,7 @@
             margin-top: 20px;
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         .message {
             margin: 20px 0;
@@ -72,7 +73,8 @@
     <div class="button-container">
         <button onclick="location.href='registrarUsuario.jsp'">Registrar Usuario</button>
         <button onclick="location.href='tomarAsistencia.jsp'">Tomar Asistencia</button>
-        <button onclick="location.href='listarUsuarios.jsp'">Listar Usuarios</button>
+        <button onclick="location.href='listarUsuarios?filtro='">Listar Usuarios</button>
+        <button onclick="location.href='filtrarAsistencia.jsp'">Ver Lista de Asistencia</button>
     </div>
 </body>
 </html>

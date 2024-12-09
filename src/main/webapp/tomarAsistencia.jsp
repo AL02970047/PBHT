@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Usuario" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,15 +16,9 @@
         h1 {
             color: #333;
         }
-        label, input, select {
+        label, select, input {
             display: block;
             margin: 10px 0;
-        }
-        input {
-            padding: 8px;
-            font-size: 14px;
-            width: 100%;
-            max-width: 400px;
         }
         select {
             padding: 8px;
@@ -41,21 +37,20 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Añadida transición */
         }
         .submit-button {
             background-color: #007bff;
             color: white;
         }
         .submit-button:hover {
-            background-color: #0056b3; /* Cambia a azul más oscuro */
+            background-color: #0056b3;
         }
         .back-button {
             background-color: #dc3545;
             color: white;
         }
         .back-button:hover {
-            background-color: #a71d2a; /* Cambia a rojo más oscuro */
+            background-color: #a71d2a;
         }
         .message {
             margin: 20px 0;
@@ -76,7 +71,7 @@
 <body>
     <h1>Tomar Asistencia</h1>
 
-    <!-- Mensajes dinámicos -->
+    <%-- Mensajes dinámicos --%>
     <%
         String message = request.getParameter("message");
         String error = request.getParameter("error");
@@ -92,8 +87,8 @@
     %>
 
     <form action="registrarAsistencia" method="post">
-        <label for="idUsuario">ID Usuario:</label>
-        <input type="text" id="idUsuario" name="idUsuario" required placeholder="Ingresa el ID del usuario">
+        <label for="idUsuario">ID del Usuario:</label>
+        <input type="number" id="idUsuario" name="idUsuario" required placeholder="Ingrese el ID del usuario">
 
         <label for="accion">Acción:</label>
         <select id="accion" name="accion" required>

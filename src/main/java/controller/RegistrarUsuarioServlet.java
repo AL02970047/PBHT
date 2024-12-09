@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Usuario;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 @WebServlet("/registrarUsuario")
@@ -18,6 +20,11 @@ public class RegistrarUsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Configurar la codificación UTF-8
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+
         try {
             // Registrar un nuevo usuario
             String nombreCompleto = request.getParameter("nombreCompleto");
@@ -38,13 +45,17 @@ public class RegistrarUsuarioServlet extends HttpServlet {
             boolean resultado = usuarioController.registrarUsuario(usuario);
 
             if (resultado) {
-                response.sendRedirect("index.jsp?message=Usuario registrado con éxito");
+                // Codificar mensaje para evitar problemas de caracteres especiales
+                String message = URLEncoder.encode("Usuario registrado con éxito", StandardCharsets.UTF_8);
+                response.sendRedirect("index.jsp?message=" + message);
             } else {
-                response.sendRedirect("index.jsp?error=Error al registrar usuario");
+                String error = URLEncoder.encode("Error al registrar usuario", StandardCharsets.UTF_8);
+                response.sendRedirect("index.jsp?error=" + error);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("index.jsp?error=Datos inválidos");
+            String error = URLEncoder.encode("Datos inválidos", StandardCharsets.UTF_8);
+            response.sendRedirect("index.jsp?error=" + error);
         }
     }
 }

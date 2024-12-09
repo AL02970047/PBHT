@@ -1,63 +1,113 @@
 package controller;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Usuario;
+
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.google.gson.Gson;
 
 @WebServlet("/registrarAsistencia")
 public class AsistenciaServlet extends HttpServlet {
+
     private final UsuarioController usuarioController = new UsuarioController();
+    private final AsistenciaController asistenciaController = new AsistenciaController();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Obtener la lista de usuarios con su estado
-        List<Map<String, Object>> usuarios = usuarioController.obtenerUsuariosConEstado();
+        String filtro = request.getParameter("filtro");
 
-        // Depuración: Asegúrate de que los usuarios están siendo enviados
-        System.out.println("Usuarios enviados al JSP:");
-        for (Map<String, Object> usuario : usuarios) {
-            System.out.println(usuario);
+        if (filtro != null) { // Búsqueda AJAX
+            try {
+                List<Usuario> usuarios = usuarioController.buscarUsuarios(filtro);
+                List<UsuarioDTO> usuariosDTO = usuarios.stream()
+                        .map(u -> new UsuarioDTO(u.getId(), u.getNombreCompleto()))
+                        .collect(Collectors.toList());
+
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(new Gson().toJson(usuariosDTO));
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al buscar usuarios");
+            }
+        } else { // Cargar la página de asistencia
+            try {
+                request.getRequestDispatcher("tomarAsistencia.jsp").forward(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                String errorMsg = URLEncoder.encode("Error al cargar los usuarios", StandardCharsets.UTF_8);
+                response.sendRedirect("index.jsp?error=" + errorMsg);
+            }
         }
-
-        // Enviar usuarios al JSP
-        request.setAttribute("usuarios", usuarios);
-        request.getRequestDispatcher("tomarAsistencia.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // Obtener parámetros
+            request.setCharacterEncoding("UTF-8");
+
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-            String accion = request.getParameter("accion"); // "entrada" o "salida"
+            String accion = request.getParameter("accion");
 
-            AsistenciaController asistenciaController = new AsistenciaController();
-            boolean resultado = false;
+            Usuario usuario = usuarioController.obtenerUsuarioPorId(idUsuario);
 
-            // Registrar entrada o salida según la acción
-            if ("entrada".equalsIgnoreCase(accion)) {
-                resultado = asistenciaController.registrarEntrada(idUsuario);
-            } else if ("salida".equalsIgnoreCase(accion)) {
-                resultado = asistenciaController.registrarSalida(idUsuario);
+            if (usuario == null) {
+                String errorMsg = URLEncoder.encode("Usuario no encontrado", StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?error=" + errorMsg);
+                return;
             }
 
-            // Redirigir según el resultado
+            if (!usuario.isVigente()) {
+                String mensaje = "Este usuario tiene su suscripción vencida desde el día: " + usuario.getFechaExpiracion();
+                String encodedMessage = URLEncoder.encode(mensaje, StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?error=" + encodedMessage);
+                return;
+            }
+
+            boolean resultado = "entrada".equalsIgnoreCase(accion)
+                    ? asistenciaController.registrarEntrada(idUsuario)
+                    : asistenciaController.registrarSalida(idUsuario);
+
             if (resultado) {
-                response.sendRedirect("registrarAsistencia?message=Asistencia registrada correctamente");
+                String message = URLEncoder.encode("Asistencia registrada correctamente", StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?message=" + message);
             } else {
-                response.sendRedirect("registrarAsistencia?error=No se pudo registrar la asistencia");
+                String errorMsg = URLEncoder.encode("No se pudo registrar la asistencia", StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?error=" + errorMsg);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("registrarAsistencia?error=Datos inválidos");
+            String errorMsg = URLEncoder.encode("Datos inválidos", StandardCharsets.UTF_8);
+            response.sendRedirect("registrarAsistencia?error=" + errorMsg);
+        }
+    }
+
+    // DTO para simplificar la respuesta JSON
+    private static class UsuarioDTO {
+        private int id;
+        private String nombre;
+
+        public UsuarioDTO(int id, String nombre) {
+            this.id = id;
+            this.nombre = nombre;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getNombre() {
+            return nombre;
         }
     }
 }
