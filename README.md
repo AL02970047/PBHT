@@ -113,7 +113,7 @@ git push origin nombre-de-tu-branch
 
 Roadmap:
 A.	Requerimientos que se implementarán en un futuro.
-Requerimientos que se implementarán en un futuro
+
 •	Autenticación avanzada: Implementación de un sistema de autenticación con una cámara de reconocimiento facial o huella digital.
 •	Mejoras en la interfaz de usuario: Rediseño de la interfaz para mejorar la experiencia del usuario.
 •	Integración con servicios externos: Incorporación de APIs externas para enriquecer la funcionalidad de la aplicación.
