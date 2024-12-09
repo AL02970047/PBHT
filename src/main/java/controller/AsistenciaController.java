@@ -1,5 +1,6 @@
 package controller;
 
+import model.Asistencia;
 import model.Usuario;
 import util.DBConnection;
 
@@ -51,8 +52,6 @@ public class AsistenciaController {
                 usuario.setId(rs.getInt("id_usuario"));
                 usuario.setNombreCompleto(rs.getString("nombre_completo"));
                 usuario.setFechaExpiracion(rs.getDate("fecha_expiracion").toLocalDate());
-
-                // Determinar si el usuario está vigente
                 usuario.setVigente(usuario.getFechaExpiracion().isAfter(hoy));
                 usuarios.add(usuario);
             }
@@ -61,5 +60,76 @@ public class AsistenciaController {
         }
 
         return usuarios;
+    }
+
+    // Método para obtener asistencias de un usuario específico
+    public List<Asistencia> obtenerAsistenciasPorUsuario(int idUsuario) {
+        String query = "SELECT id_asistencia, id_usuario, horario_entrada, horario_salida FROM asistencia_calimaya WHERE id_usuario = ?";
+        List<Asistencia> asistencias = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, idUsuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Asistencia asistencia = new Asistencia();
+                    asistencia.setIdAsistencia(rs.getInt("id_asistencia"));
+                    asistencia.setIdUsuario(rs.getInt("id_usuario"));
+                    asistencia.setHorarioEntrada(rs.getTimestamp("horario_entrada").toLocalDateTime());
+                    if (rs.getTimestamp("horario_salida") != null) {
+                        asistencia.setHorarioSalida(rs.getTimestamp("horario_salida").toLocalDateTime());
+                    }
+                    asistencias.add(asistencia);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return asistencias;
+    }
+
+    // Nuevo método para obtener asistencias por filtro (semana, mes, año) con JOIN a usuarios
+    public List<Asistencia> obtenerAsistenciasPorFiltro(String filtro) {
+        int dias = 0;
+        switch (filtro) {
+            case "semana":
+                dias = 7;
+                break;
+            case "mes":
+                dias = 30;
+                break;
+            case "ano":
+                dias = 365;
+                break;
+            default:
+                dias = 7;
+                break;
+        }
+
+        String query = "SELECT a.id_usuario, u.nombre_completo, a.horario_entrada, a.horario_salida " +
+                       "FROM asistencia_calimaya a " +
+                       "JOIN usuarios u ON a.id_usuario = u.id_usuario " +
+                       "WHERE a.horario_entrada >= DATE_SUB(CURDATE(), INTERVAL ? DAY)";
+
+        List<Asistencia> asistencias = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, dias);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Asistencia asistencia = new Asistencia();
+                    asistencia.setIdUsuario(rs.getInt("id_usuario"));
+                    asistencia.setNombreCompletoUsuario(rs.getString("nombre_completo"));
+                    asistencia.setHorarioEntrada(rs.getTimestamp("horario_entrada").toLocalDateTime());
+                    if (rs.getTimestamp("horario_salida") != null) {
+                        asistencia.setHorarioSalida(rs.getTimestamp("horario_salida").toLocalDateTime());
+                    }
+                    asistencias.add(asistencia);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return asistencias;
     }
 }

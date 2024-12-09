@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Asistencia" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,6 +32,7 @@
             margin-top: 20px;
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         button {
             padding: 10px 20px;
@@ -51,6 +55,21 @@
         .back-button:hover {
             background-color: #a71d2a;
         }
+        .view-asistencias-button {
+            background-color: #28a745;
+            color: white;
+        }
+        .view-asistencias-button:hover {
+            background-color: #218838;
+        }
+        .reportes-button {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .reportes-button:hover {
+            background-color: #117a8b;
+        }
+
         .message {
             margin: 20px 0;
             padding: 10px;
@@ -64,7 +83,31 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #007bff;
+            color: #fff;
+        }
     </style>
+    <script>
+        function toggleAsistencias() {
+            var container = document.getElementById('asistenciasContainer');
+            if (container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Detalle del Usuario</h1>
@@ -88,25 +131,66 @@
         <input type="hidden" name="id" value="<%= request.getAttribute("id") %>">
         <div class="form-container">
             <label>Nombre Completo:</label>
-            <input type="text" value="<%= request.getAttribute("nombre") %>" disabled>
+            <input type="text" name="nombreCompleto" value="<%= request.getAttribute("nombre") %>">
 
             <label>Edad:</label>
-            <input type="text" value="<%= request.getAttribute("edad") %>" disabled>
+            <input type="number" name="edad" value="<%= request.getAttribute("edad") %>">
 
             <label>Dirección:</label>
-            <input type="text" value="<%= request.getAttribute("direccion") %>" disabled>
+            <input type="text" name="direccion" value="<%= request.getAttribute("direccion") %>">
 
             <label>Teléfono:</label>
-            <input type="text" value="<%= request.getAttribute("telefono") %>" disabled>
+            <input type="text" name="telefono" value="<%= request.getAttribute("telefono") %>">
 
             <label>Fecha de Expiración:</label>
             <input type="date" name="fechaExpiracion" value="<%= request.getAttribute("fechaExpiracion") %>">
 
             <div class="button-container">
                 <button type="submit" class="save-button">Guardar Cambios</button>
-                <button type="button" class="back-button" onclick="location.href='listarUsuarios'">Volver a la Lista</button>
+                <button type="button" class="back-button" onclick="location.href='listarUsuarios?filtro='">Regresar a lista de usuarios</button>
+                <button type="button" class="view-asistencias-button" onclick="toggleAsistencias()">Ver Asistencias</button>
             </div>
         </div>
     </form>
+
+    <%
+        // Formateador para las fechas
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        List<Asistencia> asistencias = (List<Asistencia>) request.getAttribute("asistencias");
+    %>
+
+    <div id="asistenciasContainer" style="display:none;">
+        <%
+            if (asistencias != null && !asistencias.isEmpty()) {
+        %>
+        <h2>Asistencias Registradas</h2>
+        <table>
+            <tr>
+                <th>ID Asistencia</th>
+                <th>Fecha/Hora Entrada</th>
+                <th>Fecha/Hora Salida</th>
+            </tr>
+            <%
+                for (Asistencia a : asistencias) {
+                    String entrada = a.getHorarioEntrada().format(formatter);
+                    String salida = (a.getHorarioSalida() != null) ? a.getHorarioSalida().format(formatter) : "Aún dentro";
+            %>
+            <tr>
+                <td><%= a.getIdAsistencia() %></td>
+                <td><%= entrada %></td>
+                <td><%= salida %></td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
+        <%
+            } else {
+        %>
+            <h2>No hay asistencias registradas para este usuario</h2>
+        <%
+            }
+        %>
+    </div>
 </body>
 </html>

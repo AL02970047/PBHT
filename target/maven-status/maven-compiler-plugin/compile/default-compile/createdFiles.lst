@@ -1,9 +1,9 @@
 controller\AsistenciaServlet$UsuarioDTO.class
 controller\RegistrarUsuarioServlet.class
 model\Asistencia.class
+controller\AsistenciaReporteServlet.class
 controller\AsistenciaServlet.class
 com\mycompany\gymcalimaya\JakartaRestConfiguration.class
-controller\BuscarUsuariosDinamicoServlet.class
 model\Usuario.class
 util\DBConnection.class
 controller\DetalleUsuarioServlet.class

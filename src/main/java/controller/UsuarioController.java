@@ -157,6 +157,26 @@ public class UsuarioController {
         return usuarios;
     }
 
+    // Nuevo método para actualizar todos los datos del usuario
+    public boolean actualizarUsuarioCompleto(int id, String nombreCompleto, int edad, String direccion, String telefono, LocalDate fechaExpiracion) {
+        String query = "UPDATE usuarios SET nombre_completo = ?, edad = ?, direccion = ?, telefono = ?, fecha_expiracion = ? WHERE id_usuario = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, nombreCompleto);
+            stmt.setInt(2, edad);
+            stmt.setString(3, direccion);
+            stmt.setString(4, telefono);
+            stmt.setDate(5, java.sql.Date.valueOf(fechaExpiracion));
+            stmt.setInt(6, id);
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     // Método auxiliar para mapear ResultSet a objeto Usuario
     private Usuario mapResultSetToUsuario(ResultSet rs) throws SQLException {
         Usuario usuario = new Usuario();

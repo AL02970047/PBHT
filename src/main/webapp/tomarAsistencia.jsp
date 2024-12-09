@@ -20,12 +20,6 @@
             display: block;
             margin: 10px 0;
         }
-        select option.vigente {
-            color: green;
-        }
-        select option.vencido {
-            color: red;
-        }
         select {
             padding: 8px;
             font-size: 14px;
@@ -58,13 +52,6 @@
         .back-button:hover {
             background-color: #a71d2a;
         }
-        .load-button {
-            background-color: #28a745;
-            color: white;
-        }
-        .load-button:hover {
-            background-color: #218838;
-        }
         .message {
             margin: 20px 0;
             padding: 10px;
@@ -80,35 +67,6 @@
             color: #721c24;
         }
     </style>
-    <script>
-        // Función para cargar usuarios dinámicamente
-        function cargarUsuarios() {
-            fetch('buscarUsuariosDinamico')
-                .then(response => response.json())
-                .then(data => {
-                    const select = document.getElementById('idUsuario');
-                    select.innerHTML = ''; // Limpiar opciones actuales
-
-                    if (data.length > 0) {
-                        data.forEach(usuario => {
-                            const option = document.createElement('option');
-                            option.value = usuario.id;
-                            option.textContent = `${usuario.id} - ${usuario.nombre}`;
-                            select.appendChild(option);
-                        });
-                    } else {
-                        const option = document.createElement('option');
-                        option.value = '';
-                        option.textContent = 'No hay usuarios disponibles';
-                        select.appendChild(option);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error al cargar usuarios:', error);
-                    alert('Ocurrió un error al cargar los usuarios.');
-                });
-        }
-    </script>
 </head>
 <body>
     <h1>Tomar Asistencia</h1>
@@ -129,14 +87,8 @@
     %>
 
     <form action="registrarAsistencia" method="post">
-        <label for="idUsuario">Seleccionar Usuario:</label>
-        <select id="idUsuario" name="idUsuario" required>
-            <option value="">Cargar usuarios para seleccionar</option>
-        </select>
-
-        <div class="button-container">
-            <button type="button" class="load-button" onclick="cargarUsuarios()">Cargar Usuarios</button>
-        </div>
+        <label for="idUsuario">ID del Usuario:</label>
+        <input type="number" id="idUsuario" name="idUsuario" required placeholder="Ingrese el ID del usuario">
 
         <label for="accion">Acción:</label>
         <select id="accion" name="accion" required>

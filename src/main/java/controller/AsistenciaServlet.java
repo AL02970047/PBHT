@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Usuario;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 import com.google.gson.Gson;
@@ -21,10 +23,9 @@ public class AsistenciaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Manejar solicitudes normales para cargar la página
         String filtro = request.getParameter("filtro");
 
-        if (filtro != null) { // Si es una solicitud de búsqueda (AJAX)
+        if (filtro != null) { // Búsqueda AJAX
             try {
                 List<Usuario> usuarios = usuarioController.buscarUsuarios(filtro);
                 List<UsuarioDTO> usuariosDTO = usuarios.stream()
@@ -38,12 +39,13 @@ public class AsistenciaServlet extends HttpServlet {
                 e.printStackTrace();
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al buscar usuarios");
             }
-        } else { // Si es una solicitud para cargar la página de asistencia
+        } else { // Cargar la página de asistencia
             try {
                 request.getRequestDispatcher("tomarAsistencia.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
-                response.sendRedirect("index.jsp?error=Error al cargar los usuarios");
+                String errorMsg = URLEncoder.encode("Error al cargar los usuarios", StandardCharsets.UTF_8);
+                response.sendRedirect("index.jsp?error=" + errorMsg);
             }
         }
     }
@@ -52,35 +54,41 @@ public class AsistenciaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("UTF-8");
+
             int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
             String accion = request.getParameter("accion");
 
-            // Validar usuario
             Usuario usuario = usuarioController.obtenerUsuarioPorId(idUsuario);
 
             if (usuario == null) {
-                response.sendRedirect("registrarAsistencia?error=Usuario no encontrado");
+                String errorMsg = URLEncoder.encode("Usuario no encontrado", StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?error=" + errorMsg);
                 return;
             }
 
             if (!usuario.isVigente()) {
-                response.sendRedirect("registrarAsistencia?error=Este usuario tiene su suscripción vencida desde el día: " + usuario.getFechaExpiracion());
+                String mensaje = "Este usuario tiene su suscripción vencida desde el día: " + usuario.getFechaExpiracion();
+                String encodedMessage = URLEncoder.encode(mensaje, StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?error=" + encodedMessage);
                 return;
             }
 
-            // Registrar entrada o salida
             boolean resultado = "entrada".equalsIgnoreCase(accion)
                     ? asistenciaController.registrarEntrada(idUsuario)
                     : asistenciaController.registrarSalida(idUsuario);
 
             if (resultado) {
-                response.sendRedirect("registrarAsistencia?message=Asistencia registrada correctamente");
+                String message = URLEncoder.encode("Asistencia registrada correctamente", StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?message=" + message);
             } else {
-                response.sendRedirect("registrarAsistencia?error=No se pudo registrar la asistencia");
+                String errorMsg = URLEncoder.encode("No se pudo registrar la asistencia", StandardCharsets.UTF_8);
+                response.sendRedirect("registrarAsistencia?error=" + errorMsg);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("registrarAsistencia?error=Datos inválidos");
+            String errorMsg = URLEncoder.encode("Datos inválidos", StandardCharsets.UTF_8);
+            response.sendRedirect("registrarAsistencia?error=" + errorMsg);
         }
     }
 

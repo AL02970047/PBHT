@@ -7,11 +7,11 @@ public class Asistencia {
     private int idUsuario;
     private LocalDateTime horarioEntrada;
     private LocalDateTime horarioSalida;
+    // Nuevo campo
+    private String nombreCompletoUsuario;
 
-    // Constructor vacío
     public Asistencia() {}
 
-    // Getters y Setters
     public int getIdAsistencia() {
         return idAsistencia;
     }
@@ -42,5 +42,13 @@ public class Asistencia {
 
     public void setHorarioSalida(LocalDateTime horarioSalida) {
         this.horarioSalida = horarioSalida;
+    }
+
+    public String getNombreCompletoUsuario() {
+        return nombreCompletoUsuario;
+    }
+
+    public void setNombreCompletoUsuario(String nombreCompletoUsuario) {
+        this.nombreCompletoUsuario = nombreCompletoUsuario;
     }
 }
